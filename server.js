@@ -9,7 +9,6 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Set up session
 const sess = {
   secret: 'supersecretsecret',
   cookie: {
@@ -27,19 +26,15 @@ const sess = {
 
 app.use(session(sess));
 
-
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use(routes);
 
-// Start the server and sync the database
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);

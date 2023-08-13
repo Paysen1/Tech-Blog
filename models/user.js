@@ -1,27 +1,40 @@
-const bcrypt = require('bcrypt');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-module.exports = function (sequelize, DataTypes) {
-  const User = sequelize.define('User', {
+class User extends Model {}
+
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  });
+  },
+  {
+    sequelize,
+    timestamps: true,
+    underscored: true,
+    modelName: 'user',
+  }
+);
 
-  User.beforeCreate(async (user) => {
-    user.password = await bcrypt.hash(user.password, 10);
-    return user;
-  });
-
-  User.associate = (models) => {
-    User.hasMany(models.Post);
-    User.hasMany(models.Comment);
-  };
-
-  return User;
-};
+module.exports = User;
