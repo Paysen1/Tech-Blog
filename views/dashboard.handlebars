@@ -1,0 +1,23 @@
+
+{{#extends 'layouts/main'}}
+
+
+{{#content 'body'}}
+  <h1>Welcome to Your Dashboard, {{ user.username }}!</h1>
+  
+  {{#if posts.length}}
+    <h2>Your Blog Posts</h2>
+    <ul class="post-list">
+      {{#each posts}}
+        <li class="post-item">
+          <h3 class="post-title"><a href="/post/{{ id }}">{{ title }}</a></h3>
+          <p class="post-date">{{ formatDate createdAt }}</p>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>You haven't created any blog posts yet.</p>
+  {{/if}}
+  
+  <a href="/new" class="btn-new-post">Create New Post</a>
+{{/content}}

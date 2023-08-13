@@ -1,0 +1,10 @@
+<div class="post">
+  <div class="post-header">
+    <h2 class="post-title">{{ post.title }}</h2>
+    <span class="post-date">{{ formatDate post.createdAt }}</span>
+  </div>
+  <div class="post-content">{{ post.content }}</div>
+  <div class="post-footer">
+    <a href="/post/{{ post.id }}" class="post-link">Read more</a>
+  </div>
+</div>

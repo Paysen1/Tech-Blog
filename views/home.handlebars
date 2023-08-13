@@ -1,0 +1,20 @@
+
+{{#extends 'layouts/main'}}
+
+{{#content 'body'}}
+  <h1>Welcome to the Tech Blog!</h1>
+  
+  {{#if posts.length}}
+    <ul class="post-list">
+      {{#each posts}}
+        <li class="post-item">
+          <h2 class="post-title"><a href="/post/{{ id }}">{{ title }}</a></h2>
+          <p class="post-date">{{ formatDate createdAt }}</p>
+          <p class="post-content">{{ truncateText content 150 }}</p>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>No blog posts are available at the moment.</p>
+  {{/if}}
+{{/content}}
